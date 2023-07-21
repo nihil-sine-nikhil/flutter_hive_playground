@@ -22,7 +22,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: FutureBuilder(
-          future: Hive.openBox('contacts'),
+          future: Hive.openBox('contacts',
+              compactionStrategy: (int total, int deleted) {
+            return deleted > 20;
+          }),
           builder: (ctx, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
