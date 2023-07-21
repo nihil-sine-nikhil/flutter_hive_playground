@@ -15,7 +15,8 @@ class _NewContactFormState extends State<NewContactForm> {
   late String _age;
   var box = Hive.box('contacts');
   void addContact(Contact contact) {
-    box.add(contact);
+    box.add(contact); // add give autoincremental keys
+    // box.put(key, value) ------ put needs both key and  value
   }
 
   @override
