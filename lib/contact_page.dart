@@ -13,6 +13,11 @@ class ContactPage extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
+            ElevatedButton(
+                onPressed: () {
+                  Hive.box('contacts').clear();
+                },
+                child: Text("sdsd")),
             Expanded(child: _buildListView()),
             NewContactForm(),
           ],
@@ -33,6 +38,27 @@ class ContactPage extends StatelessWidget {
               return ListTile(
                 title: Text(contact.name),
                 subtitle: Text('${contact.age}'),
+                trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                  IconButton(
+                    onPressed: () {
+                      contactsBox.putAt(
+                          index, Contact("name", contact.age + 1));
+                    },
+                    icon: Icon(
+                      Icons.refresh,
+                      color: Colors.green,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      contactsBox.deleteAt(index);
+                    },
+                    icon: Icon(
+                      Icons.restore_from_trash,
+                      color: Colors.red,
+                    ),
+                  ),
+                ]),
               );
             },
             itemCount: contactsBox.length,
