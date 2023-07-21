@@ -51,6 +51,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
+    Hive.box("contacts").compact();
     Hive.close();
     // Hive.box('contact').close();
     super.dispose();

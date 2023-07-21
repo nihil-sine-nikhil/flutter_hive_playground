@@ -11,16 +11,14 @@ class ContactPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Hive Tutorial'),
         ),
-        body: Column(
-          children: <Widget>[
-            ElevatedButton(
-                onPressed: () {
-                  Hive.box('contacts').clear();
-                },
-                child: Text("sdsd")),
-            Expanded(child: _buildListView()),
-            NewContactForm(),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: Column(
+            children: <Widget>[
+              Expanded(child: _buildListView()),
+              NewContactForm(),
+            ],
+          ),
         ));
   }
 
