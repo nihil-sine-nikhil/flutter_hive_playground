@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'models/contact.dart';
 
@@ -12,9 +13,9 @@ class _NewContactFormState extends State<NewContactForm> {
 
   late String _name;
   late String _age;
-
+  var box = Hive.box('contacts');
   void addContact(Contact contact) {
-    print('Name: ${contact.name}, Age: ${contact.age}');
+    box.add(contact);
   }
 
   @override
