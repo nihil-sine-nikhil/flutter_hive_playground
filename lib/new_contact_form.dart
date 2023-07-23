@@ -10,9 +10,9 @@ class NewContactForm extends StatefulWidget {
 
 class _NewContactFormState extends State<NewContactForm> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController _name = TextEditingController();
+  TextEditingController _age = TextEditingController();
 
-  late String _name;
-  late String _age;
   var box = Hive.box('contacts');
   void addContact(Contact contact) {
     box.add(contact); // add give autoincremental keys
@@ -29,16 +29,16 @@ class _NewContactFormState extends State<NewContactForm> {
             children: <Widget>[
               Expanded(
                 child: TextFormField(
+                  controller: _name,
                   decoration: InputDecoration(labelText: 'Name'),
-                  onSaved: (value) => _name = value!,
                 ),
               ),
               SizedBox(width: 10),
               Expanded(
                 child: TextFormField(
+                  controller: _age,
                   decoration: InputDecoration(labelText: 'Age'),
                   keyboardType: TextInputType.number,
-                  onSaved: (value) => _age = value!,
                 ),
               ),
             ],
@@ -47,8 +47,10 @@ class _NewContactFormState extends State<NewContactForm> {
             child: Text('Add New Contact'),
             onPressed: () {
               _formKey.currentState?.save();
-              final newContact = Contact(_name, int.parse(_age));
+              final newContact = Contact(_name.text, int.parse(_age.text));
               addContact(newContact);
+              _name.clear();
+              _age.clear();
             },
           ),
         ],
