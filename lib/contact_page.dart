@@ -21,7 +21,7 @@ class ContactPage extends StatelessWidget {
                       return Container(
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                        child: NewContactForm(),
+                        child: NewContactForm(isEdit: false),
                       );
                     });
                   });
@@ -55,9 +55,22 @@ class ContactPage extends StatelessWidget {
                 subtitle: Text('${contact.age}'),
                 trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                   IconButton(
-                    onPressed: () {
-                      contactsBox.putAt(
-                          index, Contact("name", contact.age + 1));
+                    onPressed: () async {
+                      await showModalBottomSheet(
+                          context: ctx,
+                          builder: (ctx) {
+                            return StatefulBuilder(
+                                builder: (context, setState) {
+                              return Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 30),
+                                child: NewContactForm(
+                                    isEdit: true, keyNumber: index),
+                              );
+                            });
+                          });
+                      // contactsBox.putAt(
+                      //     index, Contact("name", contact.age + 1));
                     },
                     icon: Icon(
                       Icons.refresh,
