@@ -8,6 +8,24 @@ class ContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+            child: Icon(
+              Icons.account_circle_outlined,
+              color: Theme.of(context).primaryColorDark,
+            ),
+            onPressed: () async {
+              await showModalBottomSheet(
+                  context: context,
+                  builder: (ctx) {
+                    return StatefulBuilder(builder: (context, setState) {
+                      return Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                        child: NewContactForm(),
+                      );
+                    });
+                  });
+            }),
         appBar: AppBar(
           title: Text('Hive Tutorial'),
         ),
@@ -16,7 +34,6 @@ class ContactPage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Expanded(child: _buildListView()),
-              NewContactForm(),
             ],
           ),
         ));
